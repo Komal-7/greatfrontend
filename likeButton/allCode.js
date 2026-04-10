@@ -23,28 +23,23 @@ export default function App() {
       }
     }catch(e) {
       console.log(e.message)
-      
+      setError('Something went wrong. Please try again.');
     } finally {
       setLoading(false)
     }
   }
   const currClass = ((curr || hovered) ? 'redLine ' : 'greyLine ') + ((curr) ? 'redFill ' : 'greyFill')
   return (
-    <div onClick={()=>handleClick()} onMouseEnter={()=>setHovered(true)} onMouseLeave={()=>setHovered(false)}>
-      {loading && (
-        <button className={currClass}>
-          <SpinnerIcon /> Like
+    <div >
+        <button disabled={loading} onClick={handleClick} onMouseEnter={()=>setHovered(true)} onMouseLeave={()=>setHovered(false)} className={currClass}>
+          {loading ? <SpinnerIcon /> : <HeartIcon />} Like
         </button>
-      )}
-      {!loading && (
-        <button className={currClass}>
-          <HeartIcon /> Like
-        </button>
-      )}
+      
       <br/>{error && <div>{error}</div>}
     </div>
   );
 }
+
 
 
 //styles.css
